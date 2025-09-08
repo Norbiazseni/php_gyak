@@ -29,7 +29,7 @@
         echo 'Kiír $message értéket. <br>\n';
 
         print "Kiír". $message. "értéket."."<br>\n";
-        print "Kiír $message. értéket." "<br>\n";
+        //print "Kiír $message. értéket." "<br>\n";
         print 'Kiír. {$message}. értéket. <br>\n';
 
         /*
@@ -41,7 +41,7 @@
             git remote add origin https://github.como/felnev/reponev.git
                 git config --global user.name illetve e-mail: 
             git branch -M main: "A fő ág(main) nevezése a branchben(mivan???)"
-            git push -u origin main: feltölti
+            git push -u origin main: feltölti a távoli repóba a local repot
 
             HF: töltsd le otthon a repot a saját htdocs mappádba
         */
