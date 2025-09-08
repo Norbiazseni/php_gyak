@@ -44,6 +44,8 @@
             git push -u origin main: feltölti a távoli repóba a local repot
 
             HF: töltsd le otthon a repot a saját htdocs mappádba
+
+            git clone
         */
 
 
