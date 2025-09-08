@@ -28,4 +28,55 @@
     $result = ($number % 2 == 0) ? "páros" : "páratlan";
     echo "A(z) $number egy $result szám.";
 
+    //ciklussal írasd ki 1-10ig a számokat
+
+    for ($i=0; $i < 10; $i++)
+    { 
+        $out = $i+1;
+        echo "{$out}<br>";
+    }
+
+    //hozz létre egy indexelt tömböt 5 gyümölccsel és írasd ki.
+    
+    $fruits = ["apple","orange","apricot","banana","plum"];
+
+    //$things = array("this","that");
+
+    for ($i=0; $i < count($fruits); $i++) 
+    {
+        echo "$fruits[$i]<br>";
+    }
+
+    foreach($fruits as $fruit)
+    {
+        echo "$fruit, ";
+    }
+
+    // hozd létre a users tömböt, ami taralmazza a user nevét és életkorát
+    
+    $users = [
+        "Kiss Pista" => 20,
+        "Nagy Tibi" => 21,
+        "Koós Géza" => 30
+    ];
+
+    foreach ($users as $name => $age) {
+        echo "$name: $age éves.<br>";
+    }
+
+    //vegyünk fel egy students tömböt, ami tömbök tömbje legyen
+
+    $students = [
+        ["name" => "Kovács Péter", "age" => 20],
+        ["name" => "Tóth Géza", "age" => 21],
+        ["name" => "Kis Ica", "age" => 23]
+    ];
+
+    foreach ($students as $student) 
+    {
+        echo "{$student['name']} kora: {$student['age']} év.";
+    }
+
+    //HF:  users tömb. ami majd lehetővé teszi az authentikációt(bejelentkezés ellenőrzése, név, email, jelszó, vmi ilyesmi, 5 user foreach kiirni)
+
 ?>
