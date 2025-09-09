@@ -54,6 +54,7 @@
 
     // hozd létre a users tömböt, ami taralmazza a user nevét és életkorát
     
+    /*
     $users = [
         "Kiss Pista" => 20,
         "Nagy Tibi" => 21,
@@ -63,7 +64,7 @@
     foreach ($users as $name => $age) {
         echo "$name: $age éves.<br>";
     }
-
+    */
     //vegyünk fel egy students tömböt, ami tömbök tömbje legyen
 
     $students = [
@@ -77,6 +78,40 @@
         echo "{$student['name']} kora: {$student['age']} év.";
     }
 
+    
     //HF:  users tömb. ami majd lehetővé teszi az authentikációt(bejelentkezés ellenőrzése, név, email, jelszó, vmi ilyesmi, 5 user foreach kiirni)
+
+        $users = [
+        [
+            "name" => "Kiss Pista",
+            "email" => "pista.kiss@gmail.com",
+            "password" => "jelszo123"
+        ],
+        [
+            "name" => "Nagy Tibor",
+            "email" => "tibi.nagy@freemail.hu",
+            "password" => "csaladititkok456"
+        ],
+        [
+            "name" => "Koós Géza",
+            "email" => "geza.koos@citromail.com",
+            "password" => "passwd789"
+        ],
+        [
+            "name" => "Kis Ica",
+            "email" => "ica.kis@gmail.com",
+            "password" => "kukor1ca"
+        ],
+        [
+            "name" => "Tóth Béla",
+            "email" => "bela.toth@example.com",
+            "password" => "beluska321"
+        ]
+    ];
+
+    foreach ($users as $user) {
+        echo "\nNév: {$user['name']} | \nEmail: {$user['email']} | \nJelszó: {$user['password']}<br>";
+    }
+
 
 ?>
