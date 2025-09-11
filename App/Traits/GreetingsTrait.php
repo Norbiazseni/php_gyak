@@ -1,13 +1,12 @@
 <?php
 
-    namespace App\Traits
+    namespace App\Traits;
 
 
-    trait GreetingTrait{
-        public function greet($name="Guest")
-        {
-            return "hello !$name!";
-        }
+    trait GreetingTrait {
+    public function greet($name = "Guest") {
+        return "hello $name!";
     }
+}
 
 ?>
