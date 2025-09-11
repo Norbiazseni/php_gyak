@@ -6,7 +6,7 @@
     trait GreetingTrait{
         public function greet($name="Guest")
         {
-            return "hello {$name}";
+            return "hello !$name!";
         }
     }
 
