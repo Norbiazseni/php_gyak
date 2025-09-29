@@ -37,7 +37,7 @@ if (isset($_POST["submit"]))
         {
             throw new Exception("A fájl mérete túl nagy. Maximum 5MB engedélyezett.");
         }
-
+*
         //5. fájl típus ellenőrzése (pl csak képek)
         if (!in_array($fileType, ['jpg', 'jpeg', 'png', 'gif']))
         {
@@ -49,6 +49,7 @@ if (isset($_POST["submit"]))
         {
             echo "A fájl sikeresen feltöltve: " . htmlspecialchars($fileName);
         }
+        
         else
         {
             throw new Exception("Hiba történt a fájl áthelyezése során.");

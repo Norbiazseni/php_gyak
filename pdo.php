@@ -32,11 +32,48 @@ CREATE TABLE cards (
 $dsn = "mysql:host=localhost;dbname=businesscards;charset=utf8mb4";
 $user = 'root';
 $pass = '';
-$pdo = new PDO($dsn, $user, $pass, 
-    catch(PDOException $e){
-        echo "Kapcsolódási hiba: " . $e->getMessage();
-        exit;
-    }
-);
+
+try {
+    $pdo = new PDO($dsn, $user, $pass);
+
+    //Hiba mód: Exception dobása hiba esetén
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Sikeres csatlakozás az adatbázishoz.";
+
+    $name = "George Floyd";
+    $companyName = "I cant breathe Kft.";
+    $email = "pleasedontshootmeman@gmail.com";
+    $phone = "+1 555 555 5555";
+    $photo = "uploads/profilkep.png";
+    //$status = 1;
+    $note = "Építészmérnök vagyok.";
+
+
+    //$sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES ('$name', '$companyName', '$email', '$phone', '$photo', '$note')";
+
+    //$pdo->exec($sql);
+
+    $sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES (?, ?, ?, ?, ?, ?)";
+
+    $stat = $pdo->prepare($sql);
+
+    $stat ->execute([$name, $companyName, $email, $phone, $photo, $note]);
+
+    //READ
+    /*
+    $sql = "SELECT * FROM cards where id=11";
+    $result = $pdo->query($sql);
+
+    $card = $result->fetch(PDO::FETCH_ASSOC);
+
+    print_r($card);*/
+
+
+} catch (PDOException $e) {
+    echo "Kapcsolódási hiba: " . $e->getMessage();
+    exit();
+}
+
+
 
 ?>
