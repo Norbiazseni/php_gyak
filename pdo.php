@@ -152,8 +152,6 @@ function checked_insert($pdo)
     //$card = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //echo "<br>";
     //print_r($card);
-
-
 }
 
 ?>
