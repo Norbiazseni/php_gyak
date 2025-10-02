@@ -40,8 +40,23 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Sikeres csatlakozás az adatbázishoz.";
 
-    $name = "George Floyd";
-    $companyName = "I cant breathe Kft.";
+    //xss: védekezés: htmlspecialchars()
+    //xss($pdo);
+    //sql_injection($pdo);
+    //prepared_statement($pdo); //védekezés sql injection ellen
+    checked_insert($pdo);
+
+
+} catch (PDOException $e) {
+    echo "Kapcsolódási hiba: " . $e->getMessage();
+    exit();
+}
+
+function xss($pdo)
+{
+    //INSERT
+    $name = "George Droyd";
+    $companyName = htmlspecialchars("<script>alert(\"hacked\");</script>");
     $email = "pleasedontshootmeman@gmail.com";
     $phone = "+1 555 555 5555";
     $photo = "uploads/profilkep.png";
@@ -49,6 +64,63 @@ try {
     $note = "Építészmérnök vagyok.";
 
 
+    $sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES ('$name', '$companyName', '$email', '$phone', '$photo', '$note')";
+
+    $pdo->exec($sql);
+
+    //READ
+    
+    $sql = "SELECT * FROM cards where name='George Droyd'";
+    $result = $pdo->query($sql);
+    $card = $result->fetch(PDO::FETCH_ASSOC);
+
+    print_r($card);
+}
+
+function sql_injection($pdo)
+{
+    //INJECTION
+    $name_i = "' OR '1'='1"; //támadó kód
+    $sql = "SELECT * FROM cards where name='$name_i'";
+    $result = $pdo->query($sql);
+    $card = $result->fetchAll(PDO::FETCH_ASSOC);
+    echo "<br>";
+    print_r($card);
+
+    /*
+    //$sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES ('$name', '$companyName', '$email', '$phone', '$photo', '$note')";
+
+    //$pdo->exec($sql);
+
+    $sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES (?, ?, ?, ?, ?, ?)";
+
+    $stat = $pdo->prepare($sql);
+
+    $stat ->execute([$name, $companyName, $email, $phone, $photo, $note]);
+
+    //READ
+    /*
+    $sql = "SELECT * FROM cards where id=11";
+    $result = $pdo->query($sql);
+
+    $card = $result->fetch(PDO::FETCH_ASSOC);
+
+    print_r($card);*/
+    
+}
+
+function prepared_statement($pdo)
+{
+
+    $name_i = "' OR '1'='1"; //támadó kód
+    $sql = "SELECT * FROM cards where name=?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$name_i]);
+    $card = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo "<br>";
+    print_r($card);
+
+    /*
     //$sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES ('$name', '$companyName', '$email', '$phone', '$photo', '$note')";
 
     //$pdo->exec($sql);
@@ -68,12 +140,20 @@ try {
 
     print_r($card);*/
 
-
-} catch (PDOException $e) {
-    echo "Kapcsolódási hiba: " . $e->getMessage();
-    exit();
 }
 
+function checked_insert($pdo)
+{
+    $name = htmlspecialchars("' OR '1'='1");
+    $companyName = htmlspecialchars("<script>alert(\"hacked\");</script>");
+    $sql = "INSERT INTO cards (`name`, `companyName`, `email`, `phone`, `photo`, `note`) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$name, $companyName]);
+    //$card = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //echo "<br>";
+    //print_r($card);
 
+
+}
 
 ?>
