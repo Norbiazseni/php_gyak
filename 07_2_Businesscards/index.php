@@ -92,10 +92,13 @@ switch ($action) {
         }
         $manager->editCard($id, $data);
         break;
+    case 'delete':
+        $id = $argv[2];
+        $manager->deleteCard($id);
+        break;
 
     default:
         echo "Ismeretlen művelet: $action\n";
         break;
 }
-        
 ?>

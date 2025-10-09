@@ -65,6 +65,25 @@
           } else {
               echo "Hiba: Névjegy frissítése sikertelen vagy nincs változás!";
           }
+       }
+
+       public function deleteCard(int $id): void
+       {
+           if (empty($id))
+           {
+                echo "Figyelmeztetés: Nincs törléshez megadva ID!";
+                return;
+           }
+           $sql = "DELETE FROM business_cards WHERE id = ?";
+           $stmt = $this->pdo->prepare($sql);
+
+           $success = $stmt->execute([$id]);
+
+           if ($success && $stmt->rowCount() > 0) {
+              echo "A(z) {$id} id-jű névjegy törölve!";
+            } else {
+              echo "Hiba: nem sikerült törölni a névjegyet!";
+            }
 
        }
     }
